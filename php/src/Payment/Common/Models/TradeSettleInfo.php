@@ -33,7 +33,8 @@ class TradeSettleInfo extends Model {
      */
     public static function fromMap($map = []) {
         $model = new self();
-        if(isset($map['trade_settle_detail_list'])){
+        //这里的$map的数据是一维数组，没有找到key=>'trade_settle_detail_list',因为上层代码直接传递的是$value,
+        /*if(isset($map['trade_settle_detail_list'])){
             if(!empty($map['trade_settle_detail_list'])){
                 $model->tradeSettleDetailList = [];
                 $n = 0;
@@ -41,6 +42,10 @@ class TradeSettleInfo extends Model {
                     $model->tradeSettleDetailList[$n++] = null !== $item ? TradeSettleDetail::fromMap($item) : $item;
                 }
             }
+        }*/
+        $n = 0;
+        foreach($map as $item) {
+            $model->tradeSettleDetailList[$n++] = null !== $item ? TradeSettleDetail::fromMap($item) : $item;
         }
         return $model;
     }
